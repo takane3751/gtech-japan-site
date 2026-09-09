@@ -50,6 +50,15 @@
       el.style.transitionDelay = (Math.min(i % 4, 3) * 0.08) + 's';
       io.observe(el);
     });
+    // Safety net: anything already in the viewport shows even if the observer is late
+    var showAboveFold = function () {
+      items.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 1.1) el.classList.add('is-visible');
+      });
+    };
+    window.addEventListener('load', showAboveFold);
+    setTimeout(showAboveFold, 800);
   } else {
     items.forEach(function (el) { el.classList.add('is-visible'); });
   }
