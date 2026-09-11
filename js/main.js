@@ -73,7 +73,9 @@
       e.preventDefault();
       var top = target.getBoundingClientRect().top + window.scrollY - 70;
       window.scrollTo({ top: top, behavior: 'smooth' });
-      history.replaceState(null, '', '#' + id);
+      // トップへ戻るときはハッシュを残さない（アドレスバーを / のままにする）
+      if (id === 'top') history.replaceState(null, '', location.pathname + location.search);
+      else history.replaceState(null, '', '#' + id);
     });
   });
 })();
